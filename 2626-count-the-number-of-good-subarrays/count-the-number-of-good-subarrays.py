@@ -8,15 +8,15 @@ class Solution(object):
         good_subarrays = 0
         
         for right in range(len(nums)):
-            # Add nums[right] to the window and update pairs
+           
             freq[nums[right]] += 1
-            total_pairs += freq[nums[right]] - 1  # New pairs = freq - 1
+            total_pairs += freq[nums[right]] - 1  
             
-            # While the window has >= k pairs, shrink left
+            
             while total_pairs >= k:
-                good_subarrays += len(nums) - right  # All subarrays ending at 'right' are valid
+                good_subarrays += len(nums) - right  
                 freq[nums[left]] -= 1
-                total_pairs -= freq[nums[left]]  # Remove pairs contributed by nums[left]
+                total_pairs -= freq[nums[left]] 
                 left += 1
                 
         return good_subarrays
