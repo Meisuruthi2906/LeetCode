@@ -1,25 +1,18 @@
 class Solution(object):
     def myAtoi(self, s):
-        INT_MAX = 2 ** 31 -1
-        INT_MIN = -2 ** 31
-        n = len(s)
-        i = 0
-        while i < n and s[i] == ' ':
-            i += 1
+        s = s.strip()  
+        if not s:
+            return 0
         sign = 1
-        if i < n and s[i] == '+':
-            i += 1
-        elif i < n and s[i] == '-':
-            sign = -1
-            i += 1
-        res = 0
-        while i < n and s[i].isdigit():
-            res = res * 10 + int(s[i])
-            i += 1
-        res *= sign
-        if res < INT_MIN:
-            return INT_MIN
-        elif res > INT_MAX:
-            return INT_MAX
-
-        return res
+        if s[0] in ['+', '-']:
+            if s[0] == '-':
+                sign = -1
+            s = s[1:]  
+        num = 0
+        for ch in s:
+            if not ch.isdigit():
+                break
+            num = num * 10 + int(ch)
+        num *= sign
+        num = max(min(num, 2**31 - 1), -2**31)
+        return num
